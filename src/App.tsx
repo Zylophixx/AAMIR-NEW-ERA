@@ -123,6 +123,11 @@ function App() {
   };
 
   useEffect(() => {
+    // Skip all scroll trigger animations on mobile
+    if (isMobile()) {
+      return;
+    }
+
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     gsap.registerPlugin(ScrollTrigger);
 
