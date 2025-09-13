@@ -123,65 +123,59 @@ function App() {
   };
 
   useEffect(() => {
-    // Skip all scroll trigger animations on mobile
-    if (isMobile()) {
-      return;
-    }
-
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     gsap.registerPlugin(ScrollTrigger);
 
-    // Create a single timeline for all hero elements
-    const heroTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: portfolioSectionRef.current,
-        start: "top bottom",
-        end: "top 70%",
-        scrub: 4,
-        invalidateOnRefresh: false,
-        ease: "power2.out",
-      }
-    });
+    // Desktop-only animations
+    if (!isMobile()) {
+      // Create a single timeline for all hero elements
+      const heroTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: portfolioSectionRef.current,
+          start: "top bottom",
+          end: "top 70%",
+          scrub: 4,
+          invalidateOnRefresh: false,
+          ease: "power2.out",
+        }
+      });
 
-    // Batch hero elements animation
-    const heroElements = [portraitRef.current, baseRef.current, eyesRef.current, newScrollIndicatorRef.current];
-    heroElements.forEach(element => {
-      if (element) {
-        heroTl.to(element, { 
-          y: 50,
-          ease: "power2.out"
-        }, 0);
-      }
-    }); 
+      // Batch hero elements animation
+      const heroElements = [portraitRef.current, baseRef.current, eyesRef.current, newScrollIndicatorRef.current];
+      heroElements.forEach(element => {
+        if (element) {
+          heroTl.to(element, { 
+            y: 50,
+            ease: "power2.out"
+          }, 0);
+        }
+      }); 
 
-    // New main text animation
-    gsap.to(newMainTextRef.current, {
-      y: 100,
-      opacity: 0,
-      scrollTrigger: {
-        trigger: portraitRef.current,
-        start: "top top",
-        end: "top+=3000",
-        scrub: 0.5
-      }
-    }); 
-    
-  
+      // New main text animation
+      gsap.to(newMainTextRef.current, {
+        y: 100,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: portraitRef.current,
+          start: "top top",
+          end: "top+=3000",
+          scrub: 0.5
+        }
+      }); 
 
-  // Background text animation
-gsap.to(backgroundTextRef.current, {
-  y: -200,
-  scaleY: 1,
-  transformOrigin: "top center",
-  scrollTrigger: {
-    trigger: heroRef.current,
-    start: "center center",
-    end: "bottom top",
-    scrub: 1,
-  }
-});
-
-
+      // Background text animation
+      gsap.to(backgroundTextRef.current, {
+        y: -200,
+        scaleY: 1,
+        transformOrigin: "top center",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "center center",
+          end: "bottom top",
+          scrub: 1,
+        }
+      });
+    }
 
     // Portfolio section animation
     if (portfolioSectionRef.current) {
