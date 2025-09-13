@@ -249,11 +249,13 @@ function App() {
 <div
   ref={fixedBackgroundRef}
   className="fixed inset-0 bg-center bg-no-repeat z-[-1] 
-             bg-cover sm:bg-[length:100%_100%] 
-             max-sm:bg-[length:200%_100%]"
+             bg-cover 
+             sm:bg-cover 
+             max-sm:bg-cover max-sm:bg-center"
   style={{
     backgroundImage: `url('/bg.png')`,
-    backgroundAttachment: 'fixed'
+    backgroundAttachment: 'fixed',
+    backgroundSize: window.innerWidth < 640 ? 'cover' : 'cover'
   }}
 >
 
