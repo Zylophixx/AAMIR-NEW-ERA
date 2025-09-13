@@ -211,7 +211,7 @@ function App() {
         },
       },
       {
-        start: "center 10%",
+        start: "center bottom",
         onEnter: () => setShowportrait(false),
         onLeaveBack: () => setShowportrait(true),
       }
